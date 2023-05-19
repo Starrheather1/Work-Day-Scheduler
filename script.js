@@ -6,22 +6,37 @@ $(document).ready(function () {
   displayTime()
   setInterval(displayTime, 1000)
 
-}
+
 
   $('.saveBtn').on("click", function () {
-  var text = $(this).siblings('.description').val();
-  var time = $(this).parent().attr('id');
-  localStorage.setItem(time, text);
-  console.log(time, text);
-  ));
+    var text = $(this).siblings('.description').val();
+    var time = $(this).parent().attr('id');
+    localStorage.setItem(time, text);
+    console.log(time, text);
+  });
 
+  $('.time-block').each(function (index, element) {
+    var blockTime = ($(this).attr('id').split('-')[1])
+    var currentTime = dayjs().hour()
+    console.log(currentTime, blockTime)
+    if (currentTime == blockTime) {
+      $(this).addClass('present')
+    }
+    else if (currentTime > blockTime) {
+      $(this).addClass('past')
+    }
+    else if (currentTime < blockTime) {
+      $(this).addClass('future')
+    }
+  })
 
+  // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
+  // the code isn't run until the browser has finished rendering all the elements
+  // in the html.
+  for (let i = 8; i < 19; i++) {
+    $('#' + i + '.description').val(localStorage.getItem('' + i));
 
-// Wrap all code that interacts with the DOM in a call to jQuery to ensure that
-// the code isn't run until the browser has finished rendering all the elements
-// in the html.
-for (let i = 8; i < 19; i++)
-  $('#' + i + '.description').val(localStorage.getItem('' + i));
+  };
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
   // local storage. HINT: What does `this` reference in the click listener
@@ -40,4 +55,5 @@ for (let i = 8; i < 19; i++)
   // attribute of each time-block be used to do this?
   //
   // TODO: Add code to display the current date in the header of the page.
-});
+
+})
