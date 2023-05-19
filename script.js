@@ -1,7 +1,27 @@
+displayTime = function () {
+  $('#currentDay').text(dayjs().format('dddd MMM D, YYYY h:mm a'));
+}
+
+$(document).ready(function () {
+  displayTime()
+  setInterval(displayTime, 1000)
+
+}
+
+  $('.saveBtn').on("click", function () {
+  var text = $(this).siblings('.description').val();
+  var time = $(this).parent().attr('id');
+  localStorage.setItem(time, text);
+  console.log(time, text);
+  ));
+
+
+
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
-$(function () {
+for (let i = 8; i < 19; i++)
+  $('#' + i + '.description').val(localStorage.getItem('' + i));
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
   // local storage. HINT: What does `this` reference in the click listener
